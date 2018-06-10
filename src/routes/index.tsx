@@ -1,5 +1,7 @@
 import * as React from 'react'
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+
+import { Route, BrowserRouter as Router } from 'react-router-dom'
+
 import ClassSchedule from './ClassSchedule'
 
 export default function Routes () {
