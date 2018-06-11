@@ -3,16 +3,35 @@ import * as React from 'react'
 import BigCalendar from 'react-big-calendar'
 import ScheduleService from '../../../services/schedule'
 
-const events = ScheduleService.getScheduleData()
 BigCalendar.momentLocalizer(moment)
-const Basic = () => (
-  <BigCalendar
-    events={events}
-    step={60}
-    defaultView="agenda"
-    showMultiDayTimes={true}
-    defaultDate={new Date}
-  />
-)
 
-export default Basic
+interface ICalendarState {
+  events: object[]
+}
+class CalendarView extends React.Component<{}, ICalendarState> {
+  constructor(props: ICalendarState) {
+    super(props)
+    this.state = {
+      events: [],
+    }
+  }
+  public componentWillMount() {
+    ScheduleService.getScheduleData().then(resp => {
+      this.setState({ events: resp.data })
+    })
+  }
+  public render() {
+    return (
+      <BigCalendar
+        events={this.state.events}
+        defaultView="agenda"
+        showMultiDayTimes={true}
+        defaultDate={new Date()}
+        views={['agenda']}
+        length={100}
+      />
+    )
+  }
+}
+
+export default CalendarView

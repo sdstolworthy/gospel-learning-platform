@@ -1,7 +1,6 @@
 import * as React from 'react'
 
 import {
-  Icon,
   Navbar,
   NavbarBrand,
   NavbarBurger,
@@ -17,38 +16,37 @@ interface IDefaultLayoutProps {
   children?: React.ReactNode
 }
 
-export default function DefaultLayout({ children }: IDefaultLayoutProps) {
-  return (
-    <div>
-      <Navbar className="is-dark is-fixed">
-        <NavbarBrand>
+export default class DefaultLayout extends React.Component<
+  IDefaultLayoutProps
+> {
+  public render() {
+    return (
+      <div>
+        <Navbar className="is-dark is-fixed">
+          <NavbarBrand>
             <NavbarItem>
-                <img src={''} style={{ marginRight: 5 }} /> Gospel Learning Platform
-            </NavbarItem>
-            <NavbarItem isHidden='desktop'>
-                <Icon className='fa fa-github' />
-            </NavbarItem>
-            <NavbarItem isHidden='desktop'>
-                <Icon className='fa fa-twitter' style={{ color: '#55acee' }} />
+              <img src={''} style={{ marginRight: 5 }} /> Gospel Learning
+              Platform
             </NavbarItem>
             <NavbarBurger isActive={false} />
-        </NavbarBrand>
-        <NavbarMenu isActive={false}>
+          </NavbarBrand>
+          <NavbarMenu isActive={false}>
             <NavbarStart>
-                <NavbarItem href='#/'>Home</NavbarItem>
-                <NavbarItem hasDropdown={true} isHoverable={true}>
-                    <NavbarLink href='#/documentation'>Documentation</NavbarLink>
-                    <NavbarDropdown>
-                        <NavbarItem href='#/'>One A</NavbarItem>
-                        <NavbarItem href='#/'>Two B</NavbarItem>
-                        <NavbarDivider />
-                        <NavbarItem href='#/'>Two A</NavbarItem>
-                    </NavbarDropdown>
-                </NavbarItem>
+              <NavbarItem href="#/">Home</NavbarItem>
+              <NavbarItem hasDropdown={true} isHoverable={true}>
+                <NavbarLink href="#/documentation">Documentation</NavbarLink>
+                <NavbarDropdown>
+                  <NavbarItem href="#/">One A</NavbarItem>
+                  <NavbarItem href="#/">Two B</NavbarItem>
+                  <NavbarDivider />
+                  <NavbarItem href="#/">Two A</NavbarItem>
+                </NavbarDropdown>
+              </NavbarItem>
             </NavbarStart>
-        </NavbarMenu>
-      </Navbar>
-      {children}
-    </div>
-  )
+          </NavbarMenu>
+        </Navbar>
+        {this.props.children}
+      </div>
+    )
+  }
 }
