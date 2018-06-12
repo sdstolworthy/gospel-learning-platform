@@ -10,10 +10,11 @@ import { Column } from 'bloomer/lib/grid/Column'
 import { Columns } from 'bloomer/lib/grid/Columns'
 import { Container } from 'bloomer/lib/layout/Container'
 import { Icon } from 'bloomer/lib/elements/Icon'
-
 interface IState {
   dateField: string
   modalVisible: boolean
+  linkField: string
+  titleField: string
 }
 
 export default class ClassSchedule extends React.Component<{}, IState> {
@@ -21,7 +22,9 @@ export default class ClassSchedule extends React.Component<{}, IState> {
     super(props)
     this.state = {
       dateField: '',
-      modalVisible: true
+      linkField: '',
+      modalVisible: true,
+      titleField: '',
     }
   }
   public handleCloseModal = () => {
@@ -66,7 +69,7 @@ export default class ClassSchedule extends React.Component<{}, IState> {
             </Container>
           </Column>
         </Columns>
-        <CardModal onRequestClose={this.handleCloseModal} isVisible={this.state.modalVisible}>
+        <CardModal title="Add a Class" onRequestClose={this.handleCloseModal} isVisible={this.state.modalVisible}>
           <AddClassScheduleForm onChangeInput={this.handleInputChange} />
         </CardModal>
       </DefaultLayout>
