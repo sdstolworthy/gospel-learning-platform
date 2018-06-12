@@ -14,13 +14,14 @@ interface IProps {
   isVisible: boolean
   title?: string
   onRequestClose: () => void
-  buttons?: Array<{
-    title: string,
-    color?: string,
-    action: () => void,
-  }>
+  buttons?: IButton[]
 }
 
+export interface IButton {
+  title: string,
+  color?: string,
+  action: () => void,
+}
 class CardModal extends React.Component<IProps> {
   constructor(props: IProps) {
     super(props)

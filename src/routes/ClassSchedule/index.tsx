@@ -1,7 +1,7 @@
 import * as React from 'react'
 import AddClassScheduleForm from './components/AddClassScheduleForm'
 import Calendar from './components/Calendar'
-import CardModal from '../../components/Modal'
+import CardModal, { IButton } from '../../components/Modal'
 import DefaultLayout from '../../layouts/DefaultLayout'
 import HomeMenu from './components/Menu'
 import { Box } from 'bloomer/lib/elements/Box'
@@ -45,6 +45,13 @@ export default class ClassSchedule extends React.Component<{}, IState> {
     })
   }
   public render() {
+    const buttons: IButton[] = [
+      {
+        action: this.handleCloseModal,
+        color: 'outline',
+        title: 'Cancel',
+      },
+    ]
     return (
       <DefaultLayout>
         <Columns style={{ margin: '2rem' }}>
@@ -69,7 +76,12 @@ export default class ClassSchedule extends React.Component<{}, IState> {
             </Container>
           </Column>
         </Columns>
-        <CardModal title="Add a Class" onRequestClose={this.handleCloseModal} isVisible={this.state.modalVisible}>
+        <CardModal
+          buttons={buttons}
+          title="Add a Class"
+          onRequestClose={this.handleCloseModal}
+          isVisible={this.state.modalVisible}
+        >
           <AddClassScheduleForm onChangeInput={this.handleInputChange} />
         </CardModal>
       </DefaultLayout>
