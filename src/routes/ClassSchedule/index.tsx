@@ -1,5 +1,7 @@
 import * as React from 'react'
+import AddClassScheduleForm from './components/AddClassScheduleForm'
 import Calendar from './components/Calendar'
+import CardModal from '../../components/Modal'
 import DefaultLayout from '../../layouts/DefaultLayout'
 import HomeMenu from './components/Menu'
 import { Box } from 'bloomer/lib/elements/Box'
@@ -9,7 +11,36 @@ import { Columns } from 'bloomer/lib/grid/Columns'
 import { Container } from 'bloomer/lib/layout/Container'
 import { Icon } from 'bloomer/lib/elements/Icon'
 
-export default class ClassSchedule extends React.Component<{}> {
+interface IState {
+  dateField: string
+  modalVisible: boolean
+}
+
+export default class ClassSchedule extends React.Component<{}, IState> {
+  constructor(props: {}) {
+    super(props)
+    this.state = {
+      dateField: '',
+      modalVisible: true
+    }
+  }
+  public handleCloseModal = () => {
+    this.setState({
+      modalVisible: false,
+    })
+  }
+  public handleOpenModal = () => {
+    this.setState({
+      modalVisible: true,
+    })
+  }
+  public handleInputChange = (name: string, value: string) => {
+    console.log(name, value)
+    this.setState(prevState => {
+      prevState[name] = value
+      return prevState
+    })
+  }
   public render() {
     return (
       <DefaultLayout>
@@ -22,7 +53,10 @@ export default class ClassSchedule extends React.Component<{}> {
               <Box>
                 <Columns>
                   <Column>
-                    <Button className="is-primary is-pulled-right">
+                    <Button
+                      className="is-primary is-pulled-right"
+                      onClick={this.handleOpenModal}
+                    >
                       <Icon className="fa fa-plus" />&nbsp;Add Class Session
                     </Button>
                   </Column>
@@ -32,6 +66,9 @@ export default class ClassSchedule extends React.Component<{}> {
             </Container>
           </Column>
         </Columns>
+        <CardModal onRequestClose={this.handleCloseModal} isVisible={this.state.modalVisible}>
+          <AddClassScheduleForm onChangeInput={this.handleInputChange} />
+        </CardModal>
       </DefaultLayout>
     )
   }
